@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  viki-r:
+    build: .
+    container_name: viki-r-training
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - /root/.cache:/root/.cache
+    environment:
+      - PYTHONPATH=/app
+      - VLLM_ATTENTION_BACKEND=XFORMERS
+      - HF_HOME=/home/dataset/huggingface
+      - HF_DATASETS_CACHE=/home/dataset/huggingface/datasets
+      - TRANSFORMERS_CACHE=/home/dataset/huggingface/transformers
+      - HF_ENDPOINT=https://hf-mirror.com
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

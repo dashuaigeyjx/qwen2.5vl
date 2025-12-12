@@ -1,0 +1,44 @@
+analysis_report: false
+api_url: http://117.145.66.250:8/v1/chat/completions
+chat_template: null
+dataset_args:
+  data_collection:
+    dataset_id: evalscope/Qwen3-Test-Collection
+    shuffle: true
+dataset_dir: /root/.cache/modelscope/hub/datasets
+dataset_hub: modelscope
+datasets:
+- data_collection
+debug: false
+eval_backend: Native
+eval_batch_size: 32
+eval_config: null
+eval_type: openai_api
+generation_config:
+  batch_size: 32
+  max_tokens: 32768
+  stream: true
+  temperature: 0.7
+  timeout: 60000
+  top_k: 20
+  top_p: 0.8
+ignore_errors: false
+judge_model_args: {}
+judge_strategy: auto
+judge_worker_num: 1
+limit: null
+model: /models/Qwen3-235-Instruct
+model_args: {}
+model_id: Qwen3-235-Instruct
+model_task: text_generation
+repeats: 1
+rerun_review: false
+sandbox_config: {}
+sandbox_manager_config: {}
+sandbox_type: docker
+seed: 42
+stream: true
+timeout: 60000
+use_cache: null
+use_sandbox: false
+work_dir: ./outputs/20251106_070051

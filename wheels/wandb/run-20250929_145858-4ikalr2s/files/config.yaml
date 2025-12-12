@@ -1,0 +1,525 @@
+_wandb:
+    value:
+        cli_version: 0.22.0
+        e:
+            oae76i21awt6l8ohvacwxavzm51enjam:
+                args:
+                    - --node-ip-address=172.20.20.16
+                    - --node-manager-port=33031
+                    - --object-store-name=/tmp/ray/session_2025-09-29_14-56-07_403086_253519/sockets/plasma_store
+                    - --raylet-name=/tmp/ray/session_2025-09-29_14-56-07_403086_253519/sockets/raylet
+                    - --redis-address=None
+                    - --metrics-agent-port=62633
+                    - --logging-rotate-bytes=536870912
+                    - --logging-rotate-backup-count=5
+                    - --runtime-env-agent-port=56748
+                    - --gcs-address=172.20.20.16:59815
+                    - --session-name=session_2025-09-29_14-56-07_403086_253519
+                    - --temp-dir=/tmp/ray
+                    - --webui=127.0.0.1:8265
+                    - --cluster-id=2dcdfec8dacff25345d28078eb8779dc04d8853222b8abce21a07388
+                    - --startup-token=112
+                    - --worker-launch-time-ms=1759157772111
+                    - --node-id=34adbf95116e5e3c2eb03488a4733519c2d537f76f306b449b8dbbb2
+                    - --runtime-env-hash=-1514517733
+                    - --enable-resource-isolation=false
+                cpu_count: 56
+                cpu_count_logical: 112
+                cudaVersion: "12.4"
+                disk:
+                    /:
+                        total: "3777182629888"
+                        used: "3291463180288"
+                email: cqupthzr@gmail.com
+                executable: /root/miniconda3/envs/verltool/bin/python3
+                git:
+                    commit: 869674dfff2d01e6522ae482c701409761d4d12a
+                    remote: https://ghfast.top/https://github.com/TIGER-AI-Lab/verl-tool.git
+                gpu: NVIDIA GeForce RTX 4090 D
+                gpu_count: 8
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-77402fb5-a230-fe80-57c8-b570e1cb89e4
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-196f21d1-6da2-9316-a58c-f2fe881cb1d8
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-980e3476-e1c5-94ab-1e56-706a7738e457
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-2ead5cdc-52e5-2c04-5dac-aa4261301f3c
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-ca38032e-7799-0f4f-9e6e-c62825ac7148
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-2436b482-382d-8f46-57eb-cdb946278c5f
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-1a69a3c6-14bd-8e38-75ee-2b86b816aec0
+                    - architecture: Ada
+                      cudaCores: 14592
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090 D
+                      uuid: GPU-418f55c6-b8b2-41ca-95bb-843e4c7df7f1
+                host: unnet
+                memory:
+                    total: "540445040640"
+                os: Linux-5.15.0-152-generic-x86_64-with-glibc2.35
+                program: /root/miniconda3/envs/verltool/lib/python3.10/site-packages/ray/_private/workers/default_worker.py
+                python: CPython 3.10.0
+                root: /root/hzr/verl-tool
+                startedAt: "2025-09-29T14:58:58.779633Z"
+                writerId: oae76i21awt6l8ohvacwxavzm51enjam
+        m: []
+        python_version: 3.10.0
+        t:
+            "1":
+                - 1
+                - 11
+                - 30
+                - 41
+                - 49
+                - 50
+                - 51
+                - 71
+                - 95
+                - 98
+                - 105
+            "2":
+                - 1
+                - 11
+                - 30
+                - 41
+                - 49
+                - 50
+                - 51
+                - 71
+                - 95
+                - 98
+                - 105
+            "3":
+                - 2
+                - 13
+                - 16
+                - 61
+            "4": 3.10.0
+            "5": 0.22.0
+            "6": 4.52.4
+            "12": 0.22.0
+            "13": linux-x86_64
+actor_rollout_ref:
+    value:
+        actor:
+            checkpoint:
+                load_contents:
+                    - model
+                    - optimizer
+                    - extra
+                    - hf_model
+                save_contents:
+                    - model
+                    - optimizer
+                    - extra
+                    - hf_model
+            clip_ratio: 0.2
+            clip_ratio_c: 3
+            clip_ratio_high: 0.2
+            clip_ratio_low: 0.2
+            entropy_checkpointing: false
+            entropy_coeff: 0
+            entropy_from_logits_with_chunking: false
+            fsdp_config:
+                forward_prefetch: false
+                fsdp_size: -1
+                offload_policy: false
+                optimizer_offload: true
+                param_offload: true
+                reshard_after_forward: true
+                wrap_policy:
+                    min_num_params: 0
+            grad_clip: 1
+            kl_loss_coef: 0.0001
+            kl_loss_type: low_var_kl
+            loss_agg_mode: token-mean
+            optim:
+                lr: 1e-06
+                lr_warmup_steps: 10
+                lr_warmup_steps_ratio: 0
+                min_lr_ratio: 0
+                num_cycles: 0.5
+                total_training_steps: 1005
+                warmup_style: constant
+                weight_decay: 0.01
+            policy_loss:
+                clip_cov_lb: 1
+                clip_cov_ratio: 0.0002
+                clip_cov_ub: 5
+                kl_cov_ratio: 0.0002
+                loss_mode: vanilla
+                ppo_kl_coef: 0.1
+            ppo_epochs: 1
+            ppo_max_token_len_per_gpu: 6000
+            ppo_micro_batch_size: null
+            ppo_micro_batch_size_per_gpu: 1
+            ppo_mini_batch_size: 8
+            shuffle: false
+            strategy: fsdp
+            ulysses_sequence_parallel_size: 1
+            use_dynamic_bsz: true
+            use_kl_loss: true
+            use_torch_compile: true
+        agent:
+            action_stop_tokens: /root/hzr/verl-tool/tmp/tmp.aQIdZIYCyJ
+            additional_eos_token_ids:
+                - 151645
+            call_tool_first: false
+            enable_agent: true
+            enable_mtrl: false
+            force_finish_for_last_turn: false
+            mask_observations: true
+            mask_overlong_loss: false
+            max_action_length: 2048
+            max_concurrent_trajectories: null
+            max_model_len: null
+            max_obs_length: 1024
+            max_prompt_length: 4096
+            max_response_length: 4096
+            max_start_length: 4096
+            max_turns: 2
+            min_turns: 0
+            mtrl_role: user
+            mtrl_sep: null
+            "n": 16
+            rolling_with_prompt: false
+            rollout_mode: async
+            tool_server_url: http://127.0.1.1:30955/get_observation
+            truncate_obs_side: left
+            truncate_response_side: left
+            turn_end_token: <|im_end|>
+        hybrid_engine: true
+        model:
+            custom_chat_template: null
+            enable_activation_offload: false
+            enable_gradient_checkpointing: true
+            exclude_modules: null
+            external_lib: null
+            fused_kernel_options:
+                impl_backend: torch
+            lora_alpha: 16
+            lora_rank: 0
+            path: /root/hzr/verl-0.5.0/models/Qwen2.5-3B-Instruct
+            target_modules: all-linear
+            trust_remote_code: true
+            use_fused_kernels: false
+            use_liger: false
+            use_remove_padding: true
+            use_shm: false
+        profiler:
+            _target_: verl.utils.profiler.ProfilerConfig
+            all_ranks: false
+            discrete: false
+            ranks: []
+        ref:
+            entropy_checkpointing: false
+            entropy_from_logits_with_chunking: false
+            fsdp_config:
+                forward_prefetch: false
+                param_offload: true
+                reshard_after_forward: true
+                wrap_policy:
+                    min_num_params: 0
+            log_prob_max_token_len_per_gpu: 6000
+            log_prob_micro_batch_size: null
+            log_prob_micro_batch_size_per_gpu: 8
+            log_prob_use_dynamic_bsz: true
+            strategy: fsdp
+            ulysses_sequence_parallel_size: 1
+            use_torch_compile: true
+        rollout:
+            agent:
+                custom_async_server:
+                    name: AsyncvLLMServer
+                    path: pkg://verl_tool.workers.rollout.vllm_rollout.vllm_async_server
+                num_workers: 8
+            calculate_log_probs: false
+            disable_log_stats: true
+            do_sample: true
+            dtype: bfloat16
+            enable_chunked_prefill: true
+            enforce_eager: false
+            engine_kwargs:
+                sglang:
+                    attention_backend: null
+                vllm:
+                    disable_mm_preprocessor_cache: false
+                    swap_space: null
+            free_cache_engine: true
+            gpu_memory_utilization: 0.7
+            ignore_eos: false
+            layered_summon: false
+            load_format: dummy_dtensor
+            log_prob_max_token_len_per_gpu: 6000
+            log_prob_micro_batch_size: null
+            log_prob_micro_batch_size_per_gpu: 8
+            log_prob_use_dynamic_bsz: true
+            max_model_len: null
+            max_num_batched_tokens: 8192
+            max_num_seqs: 512
+            mode: async
+            multi_stage_wake_up: false
+            multi_turn:
+                completion_callback: null
+                enable: false
+                format: hermes
+                interaction_config_path: null
+                max_assistant_turns: null
+                max_parallel_calls: 1
+                max_tool_response_length: 256
+                max_user_turns: null
+                tokenization_sanity_check_mode: strict
+                tool_config_path: null
+                tool_response_truncate_side: middle
+                use_inference_chat_template: false
+            "n": 16
+            name: vllm
+            prompt_length: 4096
+            response_length: 4096
+            temperature: 1
+            tensor_model_parallel_size: 1
+            top_k: -1
+            top_p: 1
+            val_kwargs:
+                do_sample: false
+                "n": 1
+                temperature: 0
+                top_k: -1
+                top_p: 1
+algorithm:
+    value:
+        _target_: verl.trainer.config.AlgoConfig
+        adv_estimator: grpo
+        gamma: 1
+        kl_ctrl:
+            _target_: verl.trainer.config.KLControlConfig
+            horizon: 10000
+            kl_coef: 0
+            target_kl: 0.1
+            type: fixed
+        kl_penalty: kl
+        lam: 1
+        norm_adv_by_std_in_grpo: true
+        pf_ppo:
+            _target_: verl.trainer.config.PFPPOConfig
+            reweight_method: pow
+            weight_pow: 2
+        use_kl_in_reward: false
+        use_pf_ppo: false
+critic:
+    value:
+        checkpoint:
+            load_contents:
+                - model
+                - optimizer
+                - extra
+            save_contents:
+                - model
+                - optimizer
+                - extra
+        cliprange_value: 0.5
+        forward_max_token_len_per_gpu: 32768
+        forward_micro_batch_size: null
+        forward_micro_batch_size_per_gpu: 1
+        grad_clip: 1
+        loss_agg_mode: token-mean
+        model:
+            enable_activation_offload: false
+            enable_gradient_checkpointing: true
+            external_lib: null
+            fsdp_config:
+                forward_prefetch: false
+                fsdp_size: -1
+                offload_policy: false
+                optimizer_offload: false
+                param_offload: false
+                reshard_after_forward: true
+                wrap_policy:
+                    min_num_params: 0
+            lora_alpha: 16
+            lora_rank: 0
+            path: /root/hzr/verl-0.5.0/models/Qwen2.5-3B-Instruct
+            target_modules: all-linear
+            tokenizer_path: /root/hzr/verl-0.5.0/models/Qwen2.5-3B-Instruct
+            trust_remote_code: true
+            use_remove_padding: false
+            use_shm: false
+        optim:
+            lr: 1e-05
+            lr_warmup_steps_ratio: 0
+            min_lr_ratio: null
+            total_training_steps: 1005
+            warmup_style: constant
+            weight_decay: 0.01
+        ppo_epochs: 1
+        ppo_max_token_len_per_gpu: 32768
+        ppo_micro_batch_size: null
+        ppo_micro_batch_size_per_gpu: 1
+        ppo_mini_batch_size: 8
+        profiler:
+            _target_: verl.utils.profiler.ProfilerConfig
+            all_ranks: false
+            discrete: false
+            ranks: []
+        rollout_n: 16
+        shuffle: false
+        strategy: fsdp
+        ulysses_sequence_parallel_size: 1
+        use_dynamic_bsz: true
+custom_reward_function:
+    value:
+        name: compute_score
+        path: null
+data:
+    value:
+        custom_cls:
+            name: null
+            path: null
+        datagen:
+            name: null
+            path: null
+        dataloader_num_workers: 8
+        filter_overlong_prompts: false
+        filter_overlong_prompts_workers: 1
+        image_key: images
+        max_prompt_length: 4096
+        max_response_length: 4096
+        prompt_key: prompt
+        return_full_prompt: false
+        return_multi_modal_inputs: true
+        return_raw_chat: false
+        return_raw_input_ids: false
+        reward_fn_key: data_source
+        sampler:
+            class_name: null
+            class_path: null
+        shuffle: true
+        tokenizer: null
+        train_batch_size: 8
+        train_files: ./data/search_r1/training_data/train.parquet
+        truncation: right
+        trust_remote_code: false
+        use_shm: false
+        val_batch_size: 2048
+        val_files: ./data/search_r1/training_data/test.parquet
+        validation_shuffle: false
+        video_key: videos
+ray_init:
+    value:
+        num_cpus: null
+        timeline_json_file: null
+reward_model:
+    value:
+        enable: false
+        forward_max_token_len_per_gpu: 32768
+        launch_reward_fn_async: true
+        max_length: null
+        micro_batch_size: null
+        micro_batch_size_per_gpu: null
+        model:
+            external_lib: null
+            fsdp_config:
+                forward_prefetch: false
+                fsdp_size: -1
+                param_offload: false
+                reshard_after_forward: true
+                wrap_policy:
+                    min_num_params: 0
+            input_tokenizer: /root/hzr/verl-0.5.0/models/Qwen2.5-3B-Instruct
+            path: ~/models/FsfairX-LLaMA3-RM-v0.1
+            trust_remote_code: false
+            use_fused_kernels: false
+            use_remove_padding: false
+            use_shm: false
+        profiler:
+            _target_: verl.utils.profiler.ProfilerConfig
+            all_ranks: false
+            discrete: false
+            ranks: []
+        reward_manager: search_r1_qa_em
+        sandbox_fusion:
+            max_concurrent: 64
+            memory_limit_mb: 1024
+            url: null
+        strategy: fsdp
+        ulysses_sequence_parallel_size: 1
+        use_dynamic_bsz: true
+trainer:
+    value:
+        balance_batch: true
+        controller_nsight_options:
+            cuda-graph-trace: graph
+            cuda-memory-usage: "true"
+            trace: cuda,nvtx,cublas,ucx
+        critic_warmup: 0
+        default_hdfs_dir: null
+        default_local_dir: checkpoints/search_r1_qa_em/search_r1_qa_em-fsdp-agent-_root_hzr_verl-0.5.0_models_qwen2.5-3b-instruct-grpo-n16-b8-8-t1.0-lr1e-6debug
+        del_local_ckpt_after_load: false
+        device: cuda
+        esi_redundant_time: 0
+        experiment_name: search_r1_qa_em-fsdp-agent-_root_hzr_verl-0.5.0_models_qwen2.5-3b-instruct-grpo-n16-b8-8-t1.0-lr1e-6debug
+        log_val_generations: 0
+        logger:
+            - console
+            - wandb
+        max_actor_ckpt_to_keep: null
+        max_critic_ckpt_to_keep: null
+        n_gpus_per_node: 8
+        nnodes: 1
+        npu_profile:
+            options:
+                analysis: true
+                level: level1
+                record_shapes: false
+                save_path: ./profiler_data
+                with_cpu: true
+                with_memory: false
+                with_module: false
+                with_npu: true
+                with_stack: false
+        profile_steps: null
+        project_name: search_r1_qa_em
+        ray_wait_register_center_timeout: 300
+        remove_previous_ckpt_in_save: true
+        resume_from_path: null
+        resume_mode: auto
+        rollout_data_dir: null
+        save_freq: 10
+        test_freq: 20
+        total_epochs: 15
+        total_training_steps: 1005
+        val_before_train: true
+        val_only: false
+        validation_data_dir: null
+        worker_nsight_options:
+            capture-range: cudaProfilerApi
+            capture-range-end: null
+            cuda-graph-trace: graph
+            cuda-memory-usage: "true"
+            kill: none
+            trace: cuda,nvtx,cublas,ucx
