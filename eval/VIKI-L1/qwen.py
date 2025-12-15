@@ -195,7 +195,7 @@ def main():
     output_dir = "eval/VIKI-L1/qwen/result"
     data=data[:1000]
     os.makedirs(output_dir, exist_ok=True)
-    model="/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1"
+    model="Qwen2.5VL-3B-Instruct-VIKI-R-1"
     # Use thread pool for parallel processing
     max_workers = 1  # Adjust parallel count based on API limits
     cot_data = []
