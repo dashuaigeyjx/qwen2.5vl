@@ -1,0 +1,7 @@
+Final Evaluation Results for Qwen2.5VL-3B-Instruct-VIKI-R-1:
+Total samples processed: 1000
+Total correct predictions (res > 0.1): 223
+Total predictions equal to 0: 10
+Total predictions equal to 1: 223
+Total predictions greater than 1: 0
+Final accuracy: 0.2230
