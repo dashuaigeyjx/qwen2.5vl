@@ -16,7 +16,7 @@ import tempfile
 from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
-client = OpenAI(api_key="sk-dYzYdat9ePwIOuMf3e9c2cC1B24e4cE7Ba9333E472C8442b",base_url="https://api.vveai.com/v1")
+client = OpenAI(api_key="sk-MiaA6EYzNevHC5kID22dD192864248B58e2513F974376bF6",base_url="https://api.vveai.com/v1")
 
 # Image cache lock to prevent multi-thread write conflicts
 cache_lock = threading.Lock()
@@ -195,7 +195,7 @@ def main():
     output_dir = "eval/VIKI-L1/qwen/result"
     data=data[:1000]
     os.makedirs(output_dir, exist_ok=True)
-    model="/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1"
+    model="Qwen2.5VL-3B-Instruct-VIKI-R-1"
     # Use thread pool for parallel processing
     max_workers = 1  # Adjust parallel count based on API limits
     cot_data = []
