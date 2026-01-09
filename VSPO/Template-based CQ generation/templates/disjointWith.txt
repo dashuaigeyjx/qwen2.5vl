@@ -1,0 +1,12 @@
+Template examples for A disjointWith B axioms:
+- What is the relationship between A and B?
+- Can something be both A and B?
+- What can be disjoint with A?
+
+Input axiom:
+NonVegetarianPizza disjointWith VegetarianPizza
+
+Example CQs (based on the input axiom):
+What kind of logical distinction exists between NonVegetarianPizza and VegetarianPizza in the ontology?
+Is it possible for a pizza to be categorized as both NonVegetarian and Vegetarian at the same time?
+Which other pizza classes, if any, are explicitly declared as incompatible with VegetarianPizza?

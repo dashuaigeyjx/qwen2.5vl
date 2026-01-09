@@ -1,0 +1,18 @@
+Template examples for equivalentClass axioms:
+
+If the axiom involves 'some' or 'only' like A equivalentTo prop some/only B:
+- Is A equivalent to the class that only has property 'prop' with B?
+- Is A equivalent to the class that necessarily has property 'prop' with B?
+
+If the axiom involves 'and' or 'or' like A equivalentTo prop B and/or C:
+- Is A equivalent to the intersection or union of B and C?
+- Are there elements in the intersection or union of B and C that are not A?
+- Does A exclude any concept other than B and C?
+
+Input axiom:
+CheeseyPizza equivalentClass (Pizza and [hasTopping some CheeseTopping])
+
+Example CQs (based on the input axiom):
+Is every CheeseyPizza required to have at least one topping that qualifies as a CheeseTopping?
+Can CheeseyPizza be fully defined as a type of Pizza that includes cheese as one of its toppings?
+Is CheeseyPizza logically equivalent to the intersection of Pizza and those with a cheese topping?

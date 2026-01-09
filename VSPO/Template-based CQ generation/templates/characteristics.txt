@@ -1,0 +1,18 @@
+Template examples for OWL property A characteristics:
+
+- Is property A a functional property, meaning that an individual cannot have more than one value for property A?
+- Is property A an inverse functional property, meaning that two different subjects cannot share the same value for property A?
+- Is property A a transitive property, meaning that if A relates x to y and y to z, then A also relates x to z?
+- Is property A a symmetric property, meaning that if A relates x to y, then A also relates y to x?
+- Is property A an asymmetric property, meaning that if A relates x to y, then A cannot relate y to x?
+- Is property A a reflexive property, meaning that every individual must relate to itself through property A?
+- Is property A an irreflexive property, meaning that no individual can relate to itself through property A?
+
+Input axiom:
+Property: hasBase  
+Characteristics: Functional, InverseFunctional
+
+Example CQs (based on the input axiom):
+- Is hasBase a functional property, meaning that each Pizza can have at most one PizzaBase?
+- Is hasBase also an inverse functional property, implying that each PizzaBase is associated with no more than one Pizza?
+- Could hasBase be considered a symmetric property, where if a Pizza has a base, the base would also be said to have that Pizza?

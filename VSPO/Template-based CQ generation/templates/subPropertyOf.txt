@@ -1,0 +1,13 @@
+Template examples for subPropertyOf axioms:
+- What is the relationship between property A and property B?
+- Is B a superproperty of A?
+- What are the subproperties included in property B?
+- What are the superproperties of property A?
+
+Input axiom:
+hasTopping subPropertyOf hasIngredient
+
+Example CQs (based on the input axiom):
+Does every instance of the hasTopping property also imply an instance of hasIngredient?
+Are all toppings considered a specific kind of ingredient according to the ontology's property hierarchy?
+Can any property that falls under hasTopping be used in contexts where hasIngredient is expected?

@@ -1,0 +1,14 @@
+Template examples for A rdfs:domain B and A rdfs:range B axioms:
+- Does A have a domain/range other than B?
+- Is there any B that cannot be associated with A?
+- What can be domain/range of A?
+
+Input axiom:
+Property: hasBase  
+Domain: Pizza  
+Range: PizzaBase
+
+Example CQs (based on the input axiom):
+Can the property 'hasBase' apply to anything other than a Pizza as its subject?
+Is every value used with the property 'hasBase' required to be a PizzaBase?
+What kinds of entities are allowed to appear as the base when using the 'hasBase' property?

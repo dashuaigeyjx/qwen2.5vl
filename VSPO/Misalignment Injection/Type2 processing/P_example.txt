@@ -1,0 +1,17 @@
+Property name : eats
+Property axiom: {
+      "characteristics": [],
+      "domain": [
+        "None"
+      ],
+      "range": [
+        "(animal or plant or [is-part-of some animal] or [is-part-of some plant])"
+      ],
+      "subPropertyOf": [],
+      "inverseOf": []
+    }
+
+Generated description could be:
+The property "eats" has no explicitly defined characteristics, domain restrictions, or super-properties. 
+Its range is limited to individuals classified as animals, plants, or entities that are part of an animal or plant. 
+This indicates that the property is used to relate entities to animals, plants, or their constituent parts. No inverse property is specified.

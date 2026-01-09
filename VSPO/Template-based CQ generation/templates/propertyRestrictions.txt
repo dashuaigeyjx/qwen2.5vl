@@ -1,0 +1,18 @@
+Template examples for property restrictions:
+
+If the axiom involves 'some' or 'only' like A subClassOf prop some/only B:
+- Does A only have property 'prop' with B?
+- Is it necessary for A to have property 'prop' with B?
+
+If the axiom involves 'and' or 'or' like A subClassOf prop B and/or C:
+- Is A included in both B and C?
+- Can A exist without being part of both B and C?
+- Does A exclude any concept other than B and C?
+
+Input axiom:
+parmense subClassOf (hasTopping only (MozzarellaTopping or TomatoTopping or HamTopping or ParmesanTopping or AsparagusTopping))
+
+Example CQs (based on the input axiom):
+- Does the definition of Parmense pizza ensure that it cannot have any toppings other than Mozzarella, Tomato, Ham, Parmesan, or Asparagus, regardless of quantity or combination?
+- If a pizza includes Mozzarella and Tomato but also contains a topping not listed in the definition, would it still qualify as Parmense?
+- Is the set of toppings on a Parmense pizza necessarily restricted to a finite selection that excludes all other topping categories beyond the five specified ones?

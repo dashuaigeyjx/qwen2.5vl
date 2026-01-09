@@ -1,0 +1,18 @@
+Class name : giraffe
+Class axiom: {
+"subClassOf": [
+"animal"
+],
+"disjointWith": [
+"lion"
+],
+"propertyRestrictions": [
+"[eats only (Twig or leaf)]"
+]}
+Current description: "Giraffes are herbivores, and they eat only leaves.",
+"they also eat twigs"
+
+Generated description could be:
+giraffe is defined as a subclass of animal, and it is explicitly disjoint from lion - meaning no individual can simultaneously be both a lion and a giraffe. 
+Members of this class are herbivores, characterized by a strict diet: they eat only leaves or twigs (no other food types are permitted as part of their diet). 
+This formalization ensures that any individual classified as a giraffe must have an exclusively leaf- or twig-based diet, consistent with observed giraffe feeding behaviors.

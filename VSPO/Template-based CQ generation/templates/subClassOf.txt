@@ -1,0 +1,13 @@
+Template examples for A subClassOf B axioms:
+- What is the relationship between A and B?
+- Is B a superclass of A?
+- What are the subclasses included in B?
+- What are the superclasses of A?
+
+Input axiom:
+GoatsCheeseTopping subClassOf CheeseTopping
+
+Example CQs (based on the input axiom):
+Could GoatsCheeseTopping be considered a type within the broader category of CheeseTopping?
+Which toppings are more specific than CheeseTopping, including GoatsCheeseTopping?
+To which general categories does GoatsCheeseTopping conceptually belong?

@@ -1,0 +1,12 @@
+Template examples for A owl:inverseOf B axioms:
+- How are property A and property B logically related in the ontology?
+- If an individual C is connected to D through property A, does that imply that D is also connected to C through property B?
+- What property can be inverse property of A?
+
+Input axiom:
+hasBase inverseOf isBaseOf
+
+Example CQs (based on the input axiom):
+What is the formal relationship between the properties ‘hasBase’ and ‘isBaseOf’ within the ontology?
+Suppose an object X has a base Y. Can we then say that Y is the base of X according to the ontology?
+Which property serves as the inverse of ‘hasBase’ in this ontology?
