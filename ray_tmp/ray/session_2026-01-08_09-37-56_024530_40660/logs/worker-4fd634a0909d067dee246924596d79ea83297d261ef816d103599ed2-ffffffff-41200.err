@@ -1,0 +1,1 @@
+[2026-01-08 09:38:32,268 E 41200 44921] core_worker_process.cc:842: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14

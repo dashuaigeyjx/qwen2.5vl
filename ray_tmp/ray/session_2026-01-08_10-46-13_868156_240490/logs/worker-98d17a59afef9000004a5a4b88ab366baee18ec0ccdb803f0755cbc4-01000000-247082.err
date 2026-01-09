@@ -1,0 +1,6 @@
+:job_id:01000000
+:task_name:main_task
+/opt/conda/envs/rlvr_train/lib/python3.10/site-packages/vllm/connections.py:8: RuntimeWarning: Failed to read commit hash:
+No module named 'vllm._version'
+  from vllm.version import __version__ as VLLM_VERSION
+[2026-01-08 10:46:51,038 E 247082 247116] core_worker_process.cc:842: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14
