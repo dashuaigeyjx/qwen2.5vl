@@ -63,8 +63,8 @@ python3 -m verl.trainer.main_ppo \
     trainer.n_gpus_per_node=2 \
     trainer.nnodes=1 \
     trainer.total_epochs=5 \
-    reward_model.reward_kwargs.vspo_enabled=${VSPO_ENABLED} \
-    reward_model.reward_kwargs.vspo_weight=${VSPO_WEIGHT} \
-    reward_model.reward_kwargs.vspo_model_name=${VSPO_MODEL_NAME} \
-    reward_model.reward_kwargs.vspo_threshold=${VSPO_THRESHOLD} \
+    +reward_model.reward_kwargs.vspo_enabled=${VSPO_ENABLED} \
+    +reward_model.reward_kwargs.vspo_weight=${VSPO_WEIGHT} \
+    +reward_model.reward_kwargs.vspo_model_name=${VSPO_MODEL_NAME} \
+    +reward_model.reward_kwargs.vspo_threshold=${VSPO_THRESHOLD} \
     $@
