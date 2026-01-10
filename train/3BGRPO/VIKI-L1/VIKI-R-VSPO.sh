@@ -1,0 +1,70 @@
+#!/bin/bash
+# VIKI-R training script with VSPO semantic validation integration
+# This script integrates VSPO (Validating Semantic Pitfalls in Ontology) 
+# into the GRPO training pipeline for VIKI-L1
+
+set -x
+ENGINE=${1:-vllm}
+export VLLM_ATTENTION_BACKEND=XFORMERS
+export RAY_TMPDIR=/tmp/ray_tmp
+mkdir -p /tmp/ray_tmp
+EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
+OUTPUT_DIR="/path/to/checkpoints/${EXP_NAME}"
+
+# VSPO Configuration
+# Note: Ensure your dataset has 'data_source' field set to 'viki_1_vspo'
+# VSPO parameters can be passed via dataset extra_info or config
+VSPO_ENABLED=${VSPO_ENABLED:-true}
+VSPO_WEIGHT=${VSPO_WEIGHT:-0.1}
+VSPO_MODEL_NAME=${VSPO_MODEL_NAME:-all-MiniLM-L6-v2}
+VSPO_THRESHOLD=${VSPO_THRESHOLD:-0.7}
+
+python3 -m verl.trainer.main_ppo \
+    algorithm.adv_estimator=grpo \
+    data.train_files=/app/VIKI-R/VIKI-L1/train.parquet \
+    data.val_files=/app/VIKI-R/VIKI-L1/test.parquet \
+    data.train_batch_size=256 \
+    data.max_prompt_length=4096 \
+    data.max_response_length=2048 \
+    data.filter_overlong_prompts=True \
+    data.truncation='error' \
+    data.image_key=images \
+    data.reward_fn_key=data_source \
+    actor_rollout_ref.model.path=/path/to/models/qwen2.5_vl-3b/full/viki_1_sft_500/checkpoint-62 \
+    actor_rollout_ref.actor.optim.lr=1e-6 \
+    actor_rollout_ref.model.use_remove_padding=True \
+    actor_rollout_ref.actor.ppo_mini_batch_size=128 \
+    actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=10 \
+    actor_rollout_ref.actor.use_kl_loss=True \
+    actor_rollout_ref.actor.kl_loss_coef=0.01 \
+    actor_rollout_ref.actor.kl_loss_type=low_var_kl \
+    actor_rollout_ref.actor.entropy_coeff=0 \
+    actor_rollout_ref.model.enable_gradient_checkpointing=True \
+    actor_rollout_ref.actor.fsdp_config.param_offload=False \
+    actor_rollout_ref.actor.fsdp_config.optimizer_offload=False \
+    actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=20 \
+    actor_rollout_ref.rollout.tensor_model_parallel_size=1 \
+    actor_rollout_ref.rollout.name=$ENGINE \
+    actor_rollout_ref.rollout.gpu_memory_utilization=0.6 \
+    actor_rollout_ref.rollout.enable_chunked_prefill=False \
+    actor_rollout_ref.rollout.enforce_eager=False \
+    actor_rollout_ref.rollout.free_cache_engine=False \
+    actor_rollout_ref.rollout.n=5 \
+    actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=20 \
+    actor_rollout_ref.ref.fsdp_config.param_offload=True \
+    algorithm.use_kl_in_reward=False \
+    trainer.critic_warmup=0 \
+    trainer.save_freq=100 \
+    trainer.test_freq=50 \
+    trainer.logger=['console','wandb'] \
+    trainer.project_name='VIKI-L1_3b_VSPO' \
+    trainer.experiment_name=${EXP_NAME} \
+    trainer.default_local_dir=${OUTPUT_DIR} \
+    trainer.n_gpus_per_node=2 \
+    trainer.nnodes=1 \
+    trainer.total_epochs=5 \
+    reward_model.reward_kwargs.vspo_enabled=${VSPO_ENABLED} \
+    reward_model.reward_kwargs.vspo_weight=${VSPO_WEIGHT} \
+    reward_model.reward_kwargs.vspo_model_name=${VSPO_MODEL_NAME} \
+    reward_model.reward_kwargs.vspo_threshold=${VSPO_THRESHOLD} \
+    $@

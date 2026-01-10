@@ -22,11 +22,12 @@ class NaiveRewardManager:
     """The reward manager.
     """
 
-    def __init__(self, tokenizer, num_examine, compute_score=None, reward_fn_key='data_source') -> None:
+    def __init__(self, tokenizer, num_examine, compute_score=None, reward_fn_key='data_source', **reward_kwargs) -> None:
         self.tokenizer = tokenizer
         self.num_examine = num_examine  # the number of batches of decoded responses to print to the console
         self.compute_score = compute_score or _default_compute_score
         self.reward_fn_key = reward_fn_key
+        self.reward_kwargs = reward_kwargs  # Store additional reward kwargs (e.g., VSPO parameters)
 
     def __call__(self, data: DataProto, return_dict=False):
         """We will expand this function gradually based on the available datasets"""
@@ -66,12 +67,21 @@ class NaiveRewardManager:
             data_source = data_item.non_tensor_batch[self.reward_fn_key]
 
             extra_info = data_item.non_tensor_batch.get('extra_info', None)
+            
+            # Merge reward_kwargs into extra_info for VSPO parameters
+            if extra_info is None:
+                extra_info = {}
+            if isinstance(extra_info, dict):
+                # Merge self.reward_kwargs into extra_info (extra_info takes precedence)
+                merged_extra_info = {**self.reward_kwargs, **extra_info}
+            else:
+                merged_extra_info = extra_info
 
             score = self.compute_score(
                 data_source=data_source,
                 solution_str=response_str,
                 ground_truth=ground_truth,
-                extra_info=extra_info,
+                extra_info=merged_extra_info if isinstance(merged_extra_info, dict) else extra_info,
             )
 
             if isinstance(score, dict):

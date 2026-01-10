@@ -49,6 +49,22 @@ def _default_compute_score(data_source, solution_str, ground_truth, extra_info=N
     elif data_source in ['viki_1']:
         from . import viki_1
         res = viki_1.compute_score(solution_str, ground_truth)
+    elif data_source in ['viki_1_vspo']:
+        from . import viki_1_vspo
+        # Extract VSPO parameters from extra_info if available
+        vspo_kwargs = {}
+        if extra_info:
+            vspo_kwargs = {
+                'vspo_enabled': extra_info.get('vspo_enabled', True),
+                'vspo_weight': extra_info.get('vspo_weight', 0.1),
+                'format_weight': extra_info.get('format_weight', 0.1),
+                'acc_weight': extra_info.get('acc_weight', 0.8),
+                'ontology_context': extra_info.get('ontology_context', None),
+                'model_name': extra_info.get('vspo_model_name', 'all-MiniLM-L6-v2'),
+                'threshold': extra_info.get('vspo_threshold', 0.7),
+                'use_cuda': extra_info.get('vspo_use_cuda', True),
+            }
+        res = viki_1_vspo.compute_score(solution_str, ground_truth, **vspo_kwargs)
     elif data_source in ['viki_2']:
         from . import viki_2
         res = viki_2.compute_score(solution_str, ground_truth)
