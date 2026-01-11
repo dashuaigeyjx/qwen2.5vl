@@ -30,7 +30,7 @@ python3 -m verl.trainer.main_ppo \
     data.truncation='error' \
     data.image_key=images \
     data.reward_fn_key=data_source \
-    actor_rollout_ref.model.path=/path/to/models/qwen2.5_vl-3b/full/viki_1_sft_500/checkpoint-62 \
+    actor_rollout_ref.model.path=/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1 \
     actor_rollout_ref.actor.optim.lr=1e-6 \
     actor_rollout_ref.model.use_remove_padding=True \
     actor_rollout_ref.actor.ppo_mini_batch_size=128 \
