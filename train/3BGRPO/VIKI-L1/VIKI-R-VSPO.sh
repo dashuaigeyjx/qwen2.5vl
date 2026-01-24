@@ -21,8 +21,8 @@ VSPO_THRESHOLD=${VSPO_THRESHOLD:-0.7}
 
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
-    data.train_files=/app/VIKI-R/VIKI-L1/train.parquet \
-    data.val_files=/app/VIKI-R/VIKI-L1/test.parquet \
+    data.train_files=/app/viki/VIKI-L1/train.parquet \
+    data.val_files=/app/viki/VIKI-L1/test.parquet \
     data.train_batch_size=256 \
     data.max_prompt_length=4096 \
     data.max_response_length=2048 \
