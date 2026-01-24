@@ -7,12 +7,16 @@ set -x
 ENGINE=${1:-vllm}
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export RAY_TMPDIR=/tmp/ray_tmp
-# Ray 日志和临时目录配置
+# Ray 日志和临时目录配置 - 增强稳定性
 export RAY_LOG_TO_STDERR=1
 export RAY_OBJECT_STORE_ALLOW_SLOW_STORAGE=1
 export RAY_DEDUP_LOGS_AGG_WINDOW_S=5
 export RAY_DASHBOARD_HOST=0.0.0.0
+export RAY_IGNORE_UNHANDLED_ERRORS=1
 export PYTHONPATH=/root/miniconda3/lib/python3.12/site-packages:/root/lz::/app/verl:$PYTHONPATH
+# Safetensors相关环境变量 - 解决HeaderTooLarge问题
+export SAFETENSORS_FAST_GPU=0
+export CUDA_LAUNCH_BLOCKING=1
 mkdir -p /tmp/ray_tmp
 EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
 OUTPUT_DIR="/path/to/checkpoints/${EXP_NAME}"
@@ -56,7 +60,7 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.rollout.name=$ENGINE \
     actor_rollout_ref.rollout.gpu_memory_utilization=0.6 \
     actor_rollout_ref.rollout.enable_chunked_prefill=False \
-    actor_rollout_ref.rollout.enforce_eager=False \
+    actor_rollout_ref.rollout.enforce_eager=True \
     actor_rollout_ref.rollout.free_cache_engine=False \
     actor_rollout_ref.rollout.n=5 \
     actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=20 \
