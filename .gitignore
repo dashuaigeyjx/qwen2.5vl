@@ -3,3 +3,4 @@ tmp/
 *.safetensors
 /models
 viki/
+提示词模版.txt

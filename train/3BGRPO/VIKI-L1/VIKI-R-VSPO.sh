@@ -1,12 +1,18 @@
 #!/bin/bash
 # VIKI-R training script with VSPO semantic validation integration
-# This script integrates VSPO (Validating Semantic Pitfalls in Ontology) 
+# This script integrates VSPO (Validating Semantic Pitfalls in Ontology)
 # into the GRPO training pipeline for VIKI-L1
 
 set -x
 ENGINE=${1:-vllm}
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export RAY_TMPDIR=/tmp/ray_tmp
+# Ray 日志和临时目录配置
+export RAY_LOG_TO_STDERR=1
+export RAY_OBJECT_STORE_ALLOW_SLOW_STORAGE=1
+export RAY_DEDUP_LOGS_AGG_WINDOW_S=5
+export RAY_DASHBOARD_HOST=0.0.0.0
+export PYTHONPATH=/root/miniconda3/lib/python3.12/site-packages:/root/lz::/app/verl:$PYTHONPATH
 mkdir -p /tmp/ray_tmp
 EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
 OUTPUT_DIR="/path/to/checkpoints/${EXP_NAME}"
@@ -19,6 +25,9 @@ VSPO_WEIGHT=${VSPO_WEIGHT:-0.1}
 VSPO_MODEL_NAME=${VSPO_MODEL_NAME:-all-MiniLM-L6-v2}
 VSPO_THRESHOLD=${VSPO_THRESHOLD:-0.7}
 
+# Use the correct model path based on successful runs and wandb logs
+MODEL_PATH="/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1"
+
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
     data.train_files=/app/viki/VIKI-L1/train.parquet \
@@ -30,7 +39,7 @@ python3 -m verl.trainer.main_ppo \
     data.truncation='error' \
     data.image_key=images \
     data.reward_fn_key=data_source \
-    actor_rollout_ref.model.path=/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1 \
+    actor_rollout_ref.model.path=${MODEL_PATH} \
     actor_rollout_ref.actor.optim.lr=1e-6 \
     actor_rollout_ref.model.use_remove_padding=True \
     actor_rollout_ref.actor.ppo_mini_batch_size=128 \
