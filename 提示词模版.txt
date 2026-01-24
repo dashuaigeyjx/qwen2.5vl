@@ -159,5 +159,8 @@ Vulnerabilities:
 测试集：/app/viki/VIKI-L1/test.parquet
 5、模型位置
 /app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1
-6、注意事项
+6、模型结构
+chat_template.json  generation_config.json  model-00001-of-00002.safetensors  model.safetensors.index.json  tokenizer.json         vocab.json
+config.json         merges.txt              model-00002-of-00002.safetensors  preprocessor_config.json      tokenizer_config.json
+7、注意事项
 不需要你来运行程序，因为程序在服务器上，我会先把修改玩的代码git到github上再从服务器上拉取下来运行

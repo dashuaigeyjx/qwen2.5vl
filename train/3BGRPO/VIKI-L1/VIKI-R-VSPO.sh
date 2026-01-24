@@ -14,9 +14,13 @@ export RAY_DEDUP_LOGS_AGG_WINDOW_S=5
 export RAY_DASHBOARD_HOST=0.0.0.0
 export RAY_IGNORE_UNHANDLED_ERRORS=1
 export PYTHONPATH=/root/miniconda3/lib/python3.12/site-packages:/root/lz::/app/verl:$PYTHONPATH
-# Safetensors相关环境变量 - 解决HeaderTooLarge问题
+# Safetensors相关环境变量 - 彻底解决HeaderTooLarge问题
 export SAFETENSORS_FAST_GPU=0
 export CUDA_LAUNCH_BLOCKING=1
+export TORCH_USE_CUDA_DSA=1
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
+# 临时禁用GPU加载以避免HeaderTooLarge错误
+export CUDA_VISIBLE_DEVICES=""
 mkdir -p /tmp/ray_tmp
 EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
 OUTPUT_DIR="/path/to/checkpoints/${EXP_NAME}"
@@ -29,8 +33,76 @@ VSPO_WEIGHT=${VSPO_WEIGHT:-0.1}
 VSPO_MODEL_NAME=${VSPO_MODEL_NAME:-all-MiniLM-L6-v2}
 VSPO_THRESHOLD=${VSPO_THRESHOLD:-0.7}
 
-# Use the correct model path based on successful runs and wandb logs
+# 模型路径配置 - 基于提示词模版中的模型结构
 MODEL_PATH="/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1"
+
+# 模型完整性检查函数 - 解决SafetensorError: HeaderTooLarge
+check_model_integrity() {
+    local model_path=$1
+
+    echo "=== 检查模型完整性: ${model_path} ==="
+
+    # 检查目录是否存在
+    if [ ! -d "$model_path" ]; then
+        echo "❌ 模型目录不存在: ${model_path}"
+        echo "请确认模型已正确下载到指定路径"
+        return 1
+    fi
+
+    # 检查必需的配置文件 (基于提示词模版)
+    local required_files=("config.json" "tokenizer_config.json" "model.safetensors.index.json")
+    for file in "${required_files[@]}"; do
+        if [ ! -f "${model_path}/${file}" ]; then
+            echo "❌ 缺少必需文件: ${file}"
+            return 1
+        fi
+    done
+
+    # 检查safetensors文件 (基于提示词模版中的model-00001-of-00002.safetensors等)
+    local safetensor_count=$(find "$model_path" -name "*.safetensors" | wc -l)
+    if [ "$safetensor_count" -eq 0 ]; then
+        echo "❌ 未找到任何safetensors文件"
+        echo "模型文件可能损坏或不完整"
+        return 1
+    fi
+
+    # 检查文件大小是否合理 (至少1MB)
+    local total_size=0
+    for file in $(find "$model_path" -name "*.safetensors"); do
+        local file_size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
+        total_size=$((total_size + file_size))
+    done
+
+    if [ "$total_size" -lt 1048576 ]; then  # 1MB
+        echo "❌ 模型文件总大小异常: ${total_size} bytes"
+        echo "模型文件可能损坏，请重新下载"
+        return 1
+    fi
+
+    echo "✅ 模型完整性检查通过 (${safetensor_count}个safetensors文件, ${total_size} bytes)"
+    return 0
+}
+
+# 检查模型完整性 - 预防HeaderTooLarge错误
+if ! check_model_integrity "$MODEL_PATH"; then
+    echo ""
+    echo "🔧 修复建议:"
+    echo "1. 检查模型文件是否完整下载"
+    echo "2. 验证磁盘空间是否充足"
+    echo "3. 确认文件权限设置正确"
+    echo "4. 如有必要，重新下载模型文件"
+    echo ""
+    echo "模型应包含以下文件 (基于提示词模版):"
+    echo "  - config.json, tokenizer_config.json, model.safetensors.index.json"
+    echo "  - model-00001-of-00002.safetensors, model-00002-of-00002.safetensors"
+    echo "  - generation_config.json, preprocessor_config.json"
+    echo "  - tokenizer.json, vocab.json, merges.txt, chat_template.json"
+    exit 1
+fi
+
+# 模型验证完成后重新启用GPU用于训练
+export CUDA_VISIBLE_DEVICES="0,1"
+echo "🚀 启动训练，使用GPU: $CUDA_VISIBLE_DEVICES"
 
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
