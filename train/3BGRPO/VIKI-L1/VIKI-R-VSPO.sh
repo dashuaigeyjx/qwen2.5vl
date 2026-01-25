@@ -12,7 +12,10 @@ export RAY_LOG_TO_STDERR=1
 export RAY_OBJECT_STORE_ALLOW_SLOW_STORAGE=1
 export RAY_DEDUP_LOGS_AGG_WINDOW_S=5
 export RAY_DASHBOARD_HOST=0.0.0.0
+export RAY_DASHBOARD_PORT=8265
 export RAY_IGNORE_UNHANDLED_ERRORS=1
+# 如果Dashboard仍有问题，可以禁用它
+# export RAY_DISABLE_DASHBOARD=1
 export PYTHONPATH=/root/miniconda3/lib/python3.12/site-packages:/root/lz::/app/verl:$PYTHONPATH
 # Safetensors相关环境变量 - 彻底解决HeaderTooLarge问题
 export SAFETENSORS_FAST_GPU=0
@@ -24,6 +27,48 @@ export CUDA_VISIBLE_DEVICES=""
 mkdir -p /tmp/ray_tmp
 EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
 OUTPUT_DIR="/path/to/checkpoints/${EXP_NAME}"
+
+# Ray进程和端口清理函数 - 解决端口冲突问题
+cleanup_ray() {
+    echo "=== 清理Ray进程和端口 ==="
+    
+    # 停止所有Ray进程
+    if command -v ray &> /dev/null; then
+        echo "正在停止现有Ray进程..."
+        ray stop --force 2>/dev/null || true
+        sleep 2
+    fi
+    
+    # 清理Ray临时文件
+    if [ -d "/tmp/ray_tmp" ]; then
+        echo "清理Ray临时文件..."
+        rm -rf /tmp/ray_tmp/* 2>/dev/null || true
+    fi
+    
+    # 查找并终止占用Ray相关端口的进程
+    echo "检查并释放Ray相关端口..."
+    for port in 44227 38555 8265 10001; do
+        local pid=$(lsof -ti:$port 2>/dev/null || fuser $port/tcp 2>/dev/null | awk '{print $1}' || echo "")
+        if [ ! -z "$pid" ]; then
+            echo "发现端口 $port 被进程 $pid 占用，正在终止..."
+            kill -9 $pid 2>/dev/null || true
+            sleep 1
+        fi
+    done
+    
+    # 清理Python Ray相关进程
+    pkill -f "ray::" 2>/dev/null || true
+    pkill -f "dashboard" 2>/dev/null || true
+    
+    echo "✅ Ray清理完成"
+    sleep 2
+}
+
+# 信号处理 - 确保脚本退出时清理Ray
+trap 'echo "收到退出信号，清理Ray进程..."; cleanup_ray; exit' INT TERM EXIT
+
+# 执行Ray清理
+cleanup_ray
 
 # VSPO Configuration
 # Note: Ensure your dataset has 'data_source' field set to 'viki_1_vspo'
