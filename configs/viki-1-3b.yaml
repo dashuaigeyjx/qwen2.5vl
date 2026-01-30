@@ -11,10 +11,10 @@ finetuning_type: full
 freeze_vision_tower: true
 freeze_multi_modal_projector: true
 freeze_language_model: false
-deepspeed: examples/deepspeed/ds_z3_config.json
 
 ### dataset
 dataset: viki_choose_500
+dataset_dir: /app/data
 template: qwen2_vl
 cutoff_len: 4096
 max_samples: 1000
@@ -38,10 +38,10 @@ learning_rate: 1.0e-5
 num_train_epochs: 2
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
-bf16: true
+bf16: false
+fp16: true
 ddp_timeout: 180000000
 resume_from_checkpoint: null
-
 # ## eval
 # val_size: 0.1
 # per_device_eval_batch_size: 1

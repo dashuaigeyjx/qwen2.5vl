@@ -3,4 +3,8 @@ tmp/
 *.safetensors
 /models
 viki/
-提示词模版.txt
+提示词模版.tx
+/saves
+/wandb
+/data
+/model
