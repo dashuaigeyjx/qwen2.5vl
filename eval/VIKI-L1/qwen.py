@@ -191,11 +191,11 @@ def main():
     # data=load_data("data/viki/viki_plan_final/split_6/id/val.json")
     # output_dir = "eval/56new/ood"
     
-    data=load_data("/app/VIKI-R/VIKI-R/viki/VIKI-L1/test.parquet")
+    data=load_data("/app/data/VIKI-R/viki/VIKI-L1/test.parquet")
     output_dir = "eval/VIKI-L1/qwen/result"
     data=data[:1000]
     os.makedirs(output_dir, exist_ok=True)
-    model="Qwen2.5VL-3B-Instruct-VIKI-R-1"
+    model="Qwen2.5VL-3B-Instruct-VIKI-R-1-sft"
     # Use thread pool for parallel processing
     max_workers = 1  # Adjust parallel count based on API limits
     cot_data = []
