@@ -1,5 +1,5 @@
 #!/bin/bash
-# VIKI-R training script with VSPO semantic validation integration (Step 2: Fine-tuning from checkpoint)
+# VIKI-R training script with VSPO semantic validation integration (Step 1: Zero-shot training)
 # This script integrates VSPO (Validating Semantic Pitfalls in Ontology)
 # into the GRPO training pipeline for VIKI-L1
 
@@ -7,9 +7,14 @@ set -x
 ENGINE=${1:-vllm}
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export RAY_TMPDIR=/tmp/ray_tmp
+# Ray 日志和临时目录配置
+export RAY_LOG_TO_STDERR=1
+export RAY_OBJECT_STORE_ALLOW_SLOW_STORAGE=1
+export RAY_DEDUP_LOGS_AGG_WINDOW_S=5
+export RAY_DASHBOARD_HOST=0.0.0.0
 export PYTHONPATH=/opt/conda/envs/roboviki/lib/python3.10/site-packages:/app/verl:$PYTHONPATH
 mkdir -p /tmp/ray_tmp
-EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rft_vspo'
+EXP_NAME='qwen2_5_vl_3b_VIKI_L1_rl_zero_vspo'
 OUTPUT_DIR="/app/saves/${EXP_NAME}"
 
 # VSPO Configuration
@@ -31,7 +36,7 @@ python3 -m verl.trainer.main_ppo \
     data.truncation='error' \
     data.image_key=images \
     data.reward_fn_key=data_source \
-    actor_rollout_ref.model.path=/app/saves/qwen2.5_vl-3b/full/viki_1_sft \
+    actor_rollout_ref.model.path=/app/models/Qwen2.5VL-3B-Instruct-VIKI-R-1 \
     actor_rollout_ref.actor.optim.lr=1e-6 \
     actor_rollout_ref.model.use_remove_padding=True \
     actor_rollout_ref.actor.ppo_mini_batch_size=128 \
@@ -69,3 +74,5 @@ python3 -m verl.trainer.main_ppo \
     +reward_model.reward_kwargs.vspo_model_name=${VSPO_MODEL_NAME} \
     +reward_model.reward_kwargs.vspo_threshold=${VSPO_THRESHOLD} \
     $@
+
+#gpu node yuanbenshi 4
